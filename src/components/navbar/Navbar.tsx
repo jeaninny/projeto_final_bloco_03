@@ -21,7 +21,8 @@ function Navbar() {
                     <div className="flex gap-2">
                         <input
                             type="text"
-                            className="border rounded px-20 bg-white text-black"
+                            placeholder="Procurar"                            
+                            className="border rounded pl-4 w-100 bg-white text-black"
                         />
                         <button className="flex">
                             <MagnifyingGlassIcon size={32} weight="bold" color="#3b82f6" />

@@ -1,7 +1,7 @@
 function Home() {
     return (
         <>
-            <div className="bg-cyan-100 flex justify-center items-center w-full min-h-screen">
+            <div className="bg-cyan-100 flex justify-center items-center w-full">
                 <div className='container grid grid-cols-1 md:grid-cols-2'>
 
                     <div className="flex justify-center pb-4 md:pb-0 order-first md:order-last">
