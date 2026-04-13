@@ -1,8 +1,21 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FirstAidIcon, MagnifyingGlassIcon, ShoppingCartIcon, UserIcon } from "@phosphor-icons/react"
+import { useState } from "react"
 
 function Navbar() {
 
+    // Estado para armazenar o termo digitado na busca
+    const [termoBusca, setTermoBusca] = useState('')
+
+    // Objeto responsável por redirecionar o usuário para uma outra rota
+    const navigate = useNavigate()
+
+    // Navega para a página de produtos filtrando pelo termo buscado
+    function buscarProdutos() {
+        if (termoBusca.trim() !== '') {
+            navigate(`/produtos?busca=${termoBusca}`)
+        }
+    }
 
     return (
         <>
@@ -21,18 +34,21 @@ function Navbar() {
                     <div className="flex gap-2">
                         <input
                             type="text"
-                            placeholder="Procurar"                            
+                            placeholder="Procurar"
                             className="border rounded pl-4 w-100 bg-white text-black"
+                            value={termoBusca}
+                            onChange={(e) => setTermoBusca(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && buscarProdutos()}
                         />
-                        <button className="flex">
+                        <button className="flex" onClick={buscarProdutos}>
                             <MagnifyingGlassIcon size={32} weight="bold" color="#3b82f6" />
                         </button>
                     </div>
 
 
                     <div className='flex gap-4'>
+                        <Link to='/produtos' className='hover:underline'>Produtos</Link>
                         <Link to='/categorias' className='hover:underline'>Categorias</Link>
-                        <Link to='/cadastrarcategoria' className='hover:underline'>Cadastrar Categoria</Link>
                         <UserIcon size={32} />
                         <ShoppingCartIcon size={32} />
                     </div>

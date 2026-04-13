@@ -1,27 +1,38 @@
 import { useEffect, useState } from "react";
 import { buscar } from "../../../services/Service";
 import { SyncLoader } from "react-spinners";
-import type Categoria from "../../../models/Categoria";
-import CardCategoria from "../cardcategoria/CardCategoria";
+import type Produto from "../../../models/Produto";
+import CardProduto from "../cardproduto/CardProduto";
+import { useSearchParams } from 'react-router-dom'
 
-function ListarCategorias() {
+function ListarProdutos() {
 
     // Estado para controlar o Loader (animação de carregamento)
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // Estado que irá receber todos as Categorias persistidas no Backend
-    const [categorias, setCategorias] = useState<Categoria[]>([]);
+    // Estado que irá receber todos os produtos persistidas no Backend
+    const [produtos, setProdutos] = useState<Produto[]>([]);
 
-    // Cria um useEffect para inicializar a função buscar categorias
+    // Lê o parâmetro de busca da URL (ex: /produtos?busca=vitamina)
+    const [searchParams] = useSearchParams()
+    const busca = searchParams.get('busca') || ''
+
+    // Monitora o termo de busca: se houver termo, busca por nome no backend;
+    // caso contrário, busca todos os produtos
     useEffect(() => {
-        buscarCategorias();
-    }, [])
-
-    // Função para buscar todos as categorias no backend
-    async function buscarCategorias() {
+        if (busca !== '') {
+            setIsLoading(true)
+            buscar(`/produtos/nome/${busca}`, setProdutos)
+                .finally(() => setIsLoading(false))
+        } else {
+            buscarProdutos()
+        }
+    }, [busca])
+    // Função para buscar todos os produtos no backend
+    async function buscarProdutos() {
         try {
             setIsLoading(true);
-            await buscar('/categorias', setCategorias);
+            await buscar('/produtos', setProdutos);
 
         } catch (error: any) {
             console.log(error)
@@ -48,18 +59,19 @@ function ListarCategorias() {
                 <div className="container flex flex-col">
 
                     {
-                        (!isLoading && categorias.length === 0) && (
+                        (!isLoading && produtos.length === 0) && (
                             <span className="text-3xl text-center my-8">
-                                Nenhuma Categoria foi encontrada!
+                                Nenhum Produto foi encontrado!
                             </span>
                         )
                     }
 
                     <div className="grid grid-cols-1 md:grid-cols-2 
                                     lg:grid-cols-3 gap-8">
+
                         {
-                            categorias.map((categoria) => (
-                                <CardCategoria key={categoria.id} categoria={categoria} />
+                            produtos.map((produto) => (
+                                <CardProduto key={produto.id} produto={produto} />
                             ))
                         }
                     </div>
@@ -68,4 +80,4 @@ function ListarCategorias() {
         </>
     )
 }
-export default ListarCategorias;
+export default ListarProdutos;

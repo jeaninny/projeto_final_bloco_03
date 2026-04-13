@@ -1,4 +1,4 @@
-import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react"
+import { EnvelopeIcon, GithubLogoIcon, GlobeIcon, LinkedinLogoIcon } from "@phosphor-icons/react"
 
 function Footer() {
 
@@ -13,9 +13,26 @@ function Footer() {
                     </p>
                     <p className="text-lg"> Redes Sociais</p>
                     <div className="flex gap-2">
-                        <LinkedinLogoIcon size={32} />
-                        <GithubLogoIcon size={32} />
-                        <EnvelopeIcon size={32}/>
+                        <a href="https://www.linkedin.com/in/jeaninnyteixeira" target="_blank" rel="noreferrer">
+                            <LinkedinLogoIcon size={32} weight="bold" style={{ color: "#ffffff" }}
+                                onMouseEnter={e => (e.currentTarget.style.color = "#93c5fd")}
+                                onMouseLeave={e => (e.currentTarget.style.color = "#ffffff")} />
+                        </a>
+                        <a href="https://github.com/jeaninny" target="_blank" rel="noreferrer">
+                            <GithubLogoIcon size={32} weight="bold" style={{ color: "#ffffff" }}
+                                onMouseEnter={e => (e.currentTarget.style.color = "#93c5fd")}
+                                onMouseLeave={e => (e.currentTarget.style.color = "#ffffff")} />
+                        </a>
+                        <a href="https://jeaninny.github.io/portfolio" target="_blank" rel="noreferrer">
+                            <GlobeIcon size={32} weight="bold" style={{ color: "#ffffff" }}
+                                onMouseEnter={e => (e.currentTarget.style.color = "#93c5fd")}
+                                onMouseLeave={e => (e.currentTarget.style.color = "#ffffff")} />
+                        </a>
+                        <a href="mailto:jeaninny.teixeira@gmail.com">
+                            <EnvelopeIcon size={32} weight="bold" style={{ color: "#ffffff" }}
+                                onMouseEnter={e => (e.currentTarget.style.color = "#93c5fd")}
+                                onMouseLeave={e => (e.currentTarget.style.color = "#ffffff")} />
+                        </a>
                     </div>
                 </div>
             </div>
